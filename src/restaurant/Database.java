@@ -6,17 +6,24 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Database {
 
 	private Map<Integer, Mesa> mapaDeMesas;
+	
 	private Map<Class<? extends Funcionario>, Double> salariosFixo;
 	private Map<Class<? extends Funcionario>, Double> salariosVariavel;
+	
+	private Map<Integer, Item> cardapio;
 	
 	public Database() {
 		mapaDeMesas = new HashMap<>();
 		salariosFixo = new HashMap<>();
 		salariosVariavel = new HashMap<>();
+		
+		cardapio = new HashMap<>();
 	}
 	
 	public void carregaMesas(BufferedReader inputStream) throws IOException {
@@ -90,6 +97,42 @@ public class Database {
 	
 	public double getSalarioVariavelPara(Class<? extends Funcionario> classe) {
 		return salariosVariavel.get(classe);
+	}
+
+	public void carregaCardapio(BufferedReader inputStream) throws IOException {
+		inputStream.readLine(); // Linha de comentário
+		inputStream.readLine(); // Linha de comentário
+		inputStream.readLine(); // Linha de comentário
+		inputStream.readLine(); // Linha de comentário
+		String tipo;
+		while ((tipo = inputStream.readLine()) != null) {
+			String itemString;
+			while (!(itemString = inputStream.readLine().trim()).isEmpty()) {
+				Item item = processaItem(itemString, tipo);
+				cardapio.put(item.getCodigo(), item);
+			}
+		}
+	}
+
+	private Item processaItem(String item, String tipo) {
+		System.out.println(item);
+		System.out.println(Pattern.matches("(\\d*)\\. (.*) - (\\d*,\\d*) - (\\d*,\\d*) - (\\d*) - (.*)", item));
+		Pattern pattern = Pattern.compile("(\\d*)\\. *(.*) *- *(\\d*(?:,\\d*)?) *- *(\\d*(?:,\\d*)?) *- *(\\d*) *- *(.*)");
+		Matcher matcher = pattern.matcher(item);
+		matcher.find();
+		
+		int codigo = Integer.parseInt(matcher.group(1));
+		String nome = matcher.group(2);
+		double custo = Double.parseDouble(matcher.group(3).replace(',', '.'));
+		double preço = Double.parseDouble(matcher.group(4).replace(',', '.'));
+		double preparo = Double.parseDouble(matcher.group(5).replace(',', '.'));
+		String ingredientes = matcher.group(6);
+		
+		return new Item(tipo, codigo, nome, custo, preço, preparo, ingredientes);
+	}
+	
+	public List<Item> getCardapio() {
+		return new ArrayList<Item>(cardapio.values());
 	}
 	
 }
