@@ -12,15 +12,19 @@ public class Database {
 	private Map<Class<? extends Funcionario>, Double> salariosFixo;
 	private Map<Class<? extends Funcionario>, Double> salariosVariavel;
 	
+	private Map<Integer, Funcionario> funcionarios;
+	
 	private Map<Integer, Item> cardapio;
 	
 	public Database() {
 		mapaDeMesas = new HashMap<>();
 		salariosFixo = new HashMap<>();
 		salariosVariavel = new HashMap<>();
+		funcionarios = new HashMap<>();
 		
 		cardapio = new HashMap<>();
 		
+		inicializarFuncionarios();
 		inicializarMesas();
 		inicializarSalarios();
 		inicializarCardapio();
@@ -65,6 +69,10 @@ public class Database {
 		mapaDeMesas.put(codigo, new Mesa(codigo++, setores[4], 3));
 		mapaDeMesas.put(codigo, new Mesa(codigo++, setores[4], 3));
 		mapaDeMesas.put(codigo, new Mesa(codigo++, setores[4], 3));
+	}
+	
+	private void inicializarFuncionarios() {
+		int codigo = 0;
 	}
 	
 	private void inicializarSalarios() {

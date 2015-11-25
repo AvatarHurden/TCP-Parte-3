@@ -9,7 +9,6 @@ public class DatabaseTest extends Database {
 	public void inicializaCorretamente() {
 		Database base = new Database();
 		
-
 		Assert.assertEquals(31, base.getTodasMesas().size());
 		Assert.assertEquals(12, base.getCardapio().size());
 
