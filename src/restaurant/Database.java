@@ -1,13 +1,9 @@
 package restaurant;
 
-import java.io.BufferedReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Database {
 
@@ -24,68 +20,88 @@ public class Database {
 		salariosVariavel = new HashMap<>();
 		
 		cardapio = new HashMap<>();
+		
+		inicializarMesas();
+		inicializarSalarios();
+		inicializarCardapio();
 	}
 	
-	public void carregaMesas(BufferedReader inputStream) throws IOException {
+	private void inicializarMesas() {
+		String[] setores = new String[] {"Azul", "Amarelo", "Vermelho", "Verde", "Rosa" };
+		int codigo = 0;
 		
-		inputStream.readLine(); // Linha de comentário
-		int numSetores = Integer.parseInt(inputStream.readLine());
-		inputStream.readLine(); // Linha de comentário
-		int totalMesas = 0;
-		
-		for (int i = 0; i < numSetores; i++) {
-			String nomeSetor = inputStream.readLine();
-			int numMesas = Integer.parseInt(inputStream.readLine());
-			for (int j = 0; j < numMesas; j++) {
-				Mesa m = new Mesa(totalMesas++, nomeSetor, Integer.parseInt(inputStream.readLine()));
-				mapaDeMesas.put(totalMesas, m);
-			}
-		}
-	}
+		mapaDeMesas.put(codigo, new Mesa(codigo++, setores[0], 4));
+		mapaDeMesas.put(codigo, new Mesa(codigo++, setores[0], 4));
+		mapaDeMesas.put(codigo, new Mesa(codigo++, setores[0], 2));
+		mapaDeMesas.put(codigo, new Mesa(codigo++, setores[0], 2));
+		mapaDeMesas.put(codigo, new Mesa(codigo++, setores[0], 5));
 
-	public void carregaSalarios(BufferedReader inputStream) throws IOException {
-		inputStream.readLine(); // Linha de comentário
-		inputStream.readLine(); // Linha de comentário
-		inputStream.readLine(); // Linha de comentário
-		
-		String line;
-		while ((line = inputStream.readLine()) != null) {
-			String[] parts = line.split(", ");
+		mapaDeMesas.put(codigo, new Mesa(codigo++, setores[1], 2));
+		mapaDeMesas.put(codigo, new Mesa(codigo++, setores[1], 2));
+		mapaDeMesas.put(codigo, new Mesa(codigo++, setores[1], 2));
 
-			Class<? extends Funcionario> classe = converteNome(parts[0]);
-			Double fixo = Double.parseDouble(parts[1]);
-			Double variavel = Double.parseDouble(parts[2].replaceAll("%", "")) / 100;
-			
-			salariosFixo.put(classe, fixo);
-			salariosVariavel.put(classe, variavel);
-		}
+		mapaDeMesas.put(codigo, new Mesa(codigo++, setores[2], 4));
+		mapaDeMesas.put(codigo, new Mesa(codigo++, setores[2], 4));
+		mapaDeMesas.put(codigo, new Mesa(codigo++, setores[2], 4));
+		mapaDeMesas.put(codigo, new Mesa(codigo++, setores[2], 4));
+		mapaDeMesas.put(codigo, new Mesa(codigo++, setores[2], 6));
+		mapaDeMesas.put(codigo, new Mesa(codigo++, setores[2], 6));
+		mapaDeMesas.put(codigo, new Mesa(codigo++, setores[2], 2));
+		mapaDeMesas.put(codigo, new Mesa(codigo++, setores[2], 2));
+
+		mapaDeMesas.put(codigo, new Mesa(codigo++, setores[3], 3));
+		mapaDeMesas.put(codigo, new Mesa(codigo++, setores[3], 3));
+		mapaDeMesas.put(codigo, new Mesa(codigo++, setores[3], 3));
+		mapaDeMesas.put(codigo, new Mesa(codigo++, setores[3], 4));
+		mapaDeMesas.put(codigo, new Mesa(codigo++, setores[3], 4));
+		mapaDeMesas.put(codigo, new Mesa(codigo++, setores[3], 5));
+		mapaDeMesas.put(codigo, new Mesa(codigo++, setores[3], 5));
+		mapaDeMesas.put(codigo, new Mesa(codigo++, setores[3], 5));
+		mapaDeMesas.put(codigo, new Mesa(codigo++, setores[3], 6));
+		mapaDeMesas.put(codigo, new Mesa(codigo++, setores[3], 6));
+
+		mapaDeMesas.put(codigo, new Mesa(codigo++, setores[4], 3));
+		mapaDeMesas.put(codigo, new Mesa(codigo++, setores[4], 3));
+		mapaDeMesas.put(codigo, new Mesa(codigo++, setores[4], 3));
+		mapaDeMesas.put(codigo, new Mesa(codigo++, setores[4], 3));
+		mapaDeMesas.put(codigo, new Mesa(codigo++, setores[4], 3));
 	}
 	
-	private Class<? extends Funcionario> converteNome(String nome) {
-		Class<? extends Funcionario> classe = null;
-		switch (nome) {
-		case "Atendente":
-			classe = Atendente.class;
-			break;
-		case "Garçom":
-			classe = Garcom.class;
-			break;
-		case "Cozinheiro":
-			classe = Cozinheiro.class;
-			break;
-		case "Auxiliar de cozinha":
-			classe = AuxiliarCozinha.class;
-			break;
-		case "Gerente":
-			classe = Gerente.class;
-			break;
-		default:
-			break;
-		}
-		
-		return classe;
-	}
+	private void inicializarSalarios() {
+		salariosFixo.put(Atendente.class, 150d);
+		salariosFixo.put(Garcom.class, 200d);
+		salariosFixo.put(Cozinheiro.class, 350d);
+		salariosFixo.put(AuxiliarCozinha.class, 100d);
+		salariosFixo.put(Gerente.class, 300d);
 
+		salariosVariavel.put(Atendente.class, 0.01);
+		salariosVariavel.put(Garcom.class, 0.07);
+		salariosVariavel.put(Cozinheiro.class, 0.05);
+		salariosVariavel.put(AuxiliarCozinha.class, 0.03);
+		salariosVariavel.put(Gerente.class, 0.03);
+	}
+	
+	private void inicializarCardapio() {
+		int codigo = 0;
+		
+		cardapio.put(codigo, new Item("Entrada", codigo++, "Linguiça", 13, 17, 10, "1 cebola, 2 linguiças, 1 pão"));
+		cardapio.put(codigo, new Item("Entrada", codigo++, "Camarões", 20, 26, 13, "6 camarões, 1 molho de folhas verdes"));
+
+		cardapio.put(codigo, new Item("Salada", codigo++, "Salada Caprese", 15, 20, 9, "1 tomate, 2 molhos de folhas mix"));
+
+		cardapio.put(codigo, new Item("Sopa", codigo++, "Chinesa", 10, 13, 15, "100g de missô, 100g de pernil suíno, 100g de macarrão"));
+
+		cardapio.put(codigo, new Item("Prato Principal", codigo++, "Lombo Assado da Panela", 45, 58.5, 20, "200g de lombo de porco, 150g de arroz"));
+		cardapio.put(codigo, new Item("Prato Principal", codigo++, "Frango com Quiabo", 50, 65, 14, "2 sobrecoxas de frango, 2 coxinhas de asa"));
+		cardapio.put(codigo, new Item("Prato Principal", codigo++, "Robalo Oliva e Ervas", 60, 78, 15, "1 filé de robalo, 3 batatas doces"));
+
+		cardapio.put(codigo, new Item("Sobremesa", codigo++, "Torta Tiramissu", 12, 16, 8, "200g de biscoito champagne, 100ml de café"));
+		cardapio.put(codigo, new Item("Sobremesa", codigo++, "Doce de abóbora com coco", 8, 10.5, 6, "1 abóbora, 100g de coco, 50g de açúcar"));
+
+		cardapio.put(codigo, new Item("Bebida", codigo++, "Água com gás", 3.5, 5, 0, ""));
+		cardapio.put(codigo, new Item("Bebida", codigo++, "Vinho branco", 10, 13, 0, ""));
+		cardapio.put(codigo, new Item("Bebida", codigo++, "Limonada refrescante", 9, 12, 0, "3 limões, 50ml de leite"));
+	}
 	
 	public List<Mesa> getTodasMesas() {
 		return new ArrayList<Mesa>(mapaDeMesas.values());
@@ -99,38 +115,6 @@ public class Database {
 		return salariosVariavel.get(classe);
 	}
 
-	public void carregaCardapio(BufferedReader inputStream) throws IOException {
-		inputStream.readLine(); // Linha de comentário
-		inputStream.readLine(); // Linha de comentário
-		inputStream.readLine(); // Linha de comentário
-		inputStream.readLine(); // Linha de comentário
-		String tipo;
-		while ((tipo = inputStream.readLine()) != null) {
-			String itemString;
-			while (!(itemString = inputStream.readLine().trim()).isEmpty()) {
-				Item item = processaItem(itemString, tipo);
-				cardapio.put(item.getCodigo(), item);
-			}
-		}
-	}
-
-	private Item processaItem(String item, String tipo) {
-		System.out.println(item);
-		System.out.println(Pattern.matches("(\\d*)\\. (.*) - (\\d*,\\d*) - (\\d*,\\d*) - (\\d*) - (.*)", item));
-		Pattern pattern = Pattern.compile("(\\d*)\\. *(.*) *- *(\\d*(?:,\\d*)?) *- *(\\d*(?:,\\d*)?) *- *(\\d*) *- *(.*)");
-		Matcher matcher = pattern.matcher(item);
-		matcher.find();
-		
-		int codigo = Integer.parseInt(matcher.group(1));
-		String nome = matcher.group(2);
-		double custo = Double.parseDouble(matcher.group(3).replace(',', '.'));
-		double preço = Double.parseDouble(matcher.group(4).replace(',', '.'));
-		double preparo = Double.parseDouble(matcher.group(5).replace(',', '.'));
-		String ingredientes = matcher.group(6);
-		
-		return new Item(tipo, codigo, nome, custo, preço, preparo, ingredientes);
-	}
-	
 	public List<Item> getCardapio() {
 		return new ArrayList<Item>(cardapio.values());
 	}
