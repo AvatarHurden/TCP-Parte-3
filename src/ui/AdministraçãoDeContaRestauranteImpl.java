@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
 
-import operações.OperaçõesAuxiliar;
 import restaurant.Database;
 import restaurant.Mesa;
 import restaurant.funcionarios.AuxiliarCozinha;
@@ -34,6 +33,7 @@ public class AdministraçãoDeContaRestauranteImpl implements
 		if (!loginCorreto)
 			System.out.println("Login inexistente.");
 		else {
+			System.out.println(String.format("\nOlá, %s.", funcionario.getNome()));
 			
 			if (funcionario instanceof AuxiliarCozinha)
 				esperaOpçãoAuxiliar();
