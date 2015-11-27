@@ -3,6 +3,12 @@ package restaurant;
 import org.junit.Assert;
 import org.junit.Test;
 
+import restaurant.funcionarios.Atendente;
+import restaurant.funcionarios.AuxiliarCozinha;
+import restaurant.funcionarios.Cozinheiro;
+import restaurant.funcionarios.Garcom;
+import restaurant.funcionarios.Gerente;
+
 public class DatabaseTest extends Database {
 
 	@Test

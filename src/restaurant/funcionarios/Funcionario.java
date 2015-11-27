@@ -1,4 +1,6 @@
-package restaurant;
+package restaurant.funcionarios;
+
+import restaurant.Database;
 
 public abstract class Funcionario {
 

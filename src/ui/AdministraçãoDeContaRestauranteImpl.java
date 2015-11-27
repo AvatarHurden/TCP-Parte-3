@@ -4,8 +4,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import operações.OperaçõesGerente;
 import restaurant.Database;
-import restaurant.Funcionario;
+import restaurant.funcionarios.Funcionario;
 
 public class AdministraçãoDeContaRestauranteImpl implements
 		AdministraçãoDeContaRestaurante {
@@ -29,6 +30,12 @@ public class AdministraçãoDeContaRestauranteImpl implements
 		boolean loginCorreto = login(requestLogin());
 		if (!loginCorreto)
 			System.out.println("Login inexistente.");
+		else {
+			
+			if (funcionario instanceof OperaçõesGerente)
+				System.out.println("é gerente");
+			
+		}
 	}
 
 	private int requestLogin() {

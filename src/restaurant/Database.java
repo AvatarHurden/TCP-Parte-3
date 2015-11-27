@@ -5,6 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import restaurant.funcionarios.Atendente;
+import restaurant.funcionarios.AuxiliarCozinha;
+import restaurant.funcionarios.Cozinheiro;
+import restaurant.funcionarios.Funcionario;
+import restaurant.funcionarios.Garcom;
+import restaurant.funcionarios.Gerente;
+
 public class Database {
 
 	private Map<Integer, Mesa> mapaDeMesas;
