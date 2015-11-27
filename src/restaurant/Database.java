@@ -80,6 +80,8 @@ public class Database {
 	
 	private void inicializarFuncionarios() {
 		int codigo = 0;
+		
+		funcionarios.put(codigo, new AuxiliarCozinha("Pedro", codigo++, this));
 	}
 	
 	private void inicializarSalarios() {
@@ -120,6 +122,12 @@ public class Database {
 	
 	public List<Mesa> getTodasMesas() {
 		return new ArrayList<Mesa>(mapaDeMesas.values());
+	}
+	
+	public List<Mesa> getMesasComStatus(Status status) {
+		List<Mesa> ret = getTodasMesas();
+		ret.removeIf(mesa -> mesa.getStatus() != status);
+		return ret;
 	}
 
 	public double getSalarioFixoPara(Class<? extends Funcionario> classe) {

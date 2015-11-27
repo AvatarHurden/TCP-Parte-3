@@ -17,10 +17,10 @@ public class Restaurant {
 	}
 	
 	private static boolean continueProgram() throws IOException {
-		System.out.println("Escolha uma das opções:");
+		System.out.println("\nEscolha uma das opções:");
 		System.out.println("1. Fazer login");
 		System.out.println("2. Sair do programa");
-		System.out.print("Sua escolha: ");
+		System.out.print("\nSua escolha: ");
 		String resposta = new BufferedReader(new InputStreamReader(System.in)).readLine();
 		return resposta.equals("1");
 	}

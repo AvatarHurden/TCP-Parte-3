@@ -2,13 +2,16 @@ package restaurant.funcionarios;
 
 import operações.OperaçõesGerente;
 import restaurant.Database;
+import restaurant.Estoque;
 import restaurant.Turno;
 
 public class Gerente extends Funcionario implements OperaçõesGerente {
 
-	public Gerente(String nome, int código, Database bancoDeDados) {
+	private Estoque estoque;
+	
+	public Gerente(String nome, int código, Database bancoDeDados, Estoque estoque) {
 		super(nome, código, bancoDeDados);
-		// TODO Auto-generated constructor stub
+		this.estoque = estoque;
 	}
 
 	@Override
