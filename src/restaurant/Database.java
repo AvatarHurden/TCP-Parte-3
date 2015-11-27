@@ -127,4 +127,8 @@ public class Database {
 		return new ArrayList<Item>(cardapio.values());
 	}
 	
+	public Funcionario getFuncionario(int código) {
+		return funcionarios.get(código);
+	}
+	
 }
