@@ -8,6 +8,7 @@ import java.util.List;
 import restaurant.Database;
 import restaurant.Mesa;
 import restaurant.funcionarios.AuxiliarCozinha;
+import restaurant.funcionarios.Cozinheiro;
 import restaurant.funcionarios.Funcionario;
 
 public class AdministraçãoDeContaRestauranteImpl implements
@@ -37,6 +38,8 @@ public class AdministraçãoDeContaRestauranteImpl implements
 			
 			if (funcionario instanceof AuxiliarCozinha)
 				esperaOpçãoAuxiliar();
+			else if (funcionario instanceof Cozinheiro)
+				esperaOpçãoCozinheiro();
 			
 		}
 	}
@@ -70,6 +73,29 @@ public class AdministraçãoDeContaRestauranteImpl implements
 				System.out.println(String.format("\nMesa %d foi liberada", mesas.get(0).getCódigo()));
 			
 			operações.liberarMesa();
+		default:
+			break;
+		}
+	}
+	
+	private void esperaOpçãoCozinheiro() {
+		System.out.println("\nAções disponíveis:");
+		System.out.println("1. Iniciar Preparação");
+		System.out.println("2. Finalizar Preparação");
+		System.out.println("3. Cancelar");
+		int opção = requestNumber("\nSua escolha: ", 1, 3);
+		
+		Cozinheiro operações = (Cozinheiro) funcionario;
+		
+		switch (opção) {
+		case 1:
+			operações.iniciarPreparação();
+			
+			break;
+		case 2:
+			operações.finalizarPreparação();
+			
+			break;
 		default:
 			break;
 		}
