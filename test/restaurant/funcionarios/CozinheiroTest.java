@@ -15,7 +15,7 @@ public class CozinheiroTest {
 	
 	private Database base;
 	
-	private Pedido pedido1, pedido2, pedido3;
+	private Pedido pedido1, pedido2;
 	
 	@Before
 	public void inicializa() {
@@ -31,13 +31,11 @@ public class CozinheiroTest {
 		
 		pedido2 = new Pedido(base.getTodasMesas().get(1));
 		pedido2.getItens().add(new Item("salada", 13, "Salada", 5, 10, 1, "1 kg de folha"));
-		
-		pedido3 = new Pedido(base.getTodasMesas().get(2));
 	}
 	
 	@Test
 	public void testOrdenaPedido() {
-		Cozinheiro cozinheiro = new Cozinheiro("Pedro", 1, base);
+		Cozinheiro cozinheiro = new Cozinheiro("Pedro", 2, base);
 		
 		cozinheiro.receberPedido(pedido1);
 		cozinheiro.iniciarPreparação();
@@ -56,26 +54,30 @@ public class CozinheiroTest {
 	}
 	
 	@Test
-	public void testFinalizaPreparaçãoVazia() {
-		Cozinheiro cozinheiro = new Cozinheiro("Pedro", 1, base);
-		
-		cozinheiro.receberPedido(pedido3);
-		cozinheiro.iniciarPreparação();
-		
-		assertEquals(true, cozinheiro.finalizarPreparação());
-	}
-	
-	@Test
 	public void testFinalizaPreparaçãoUmItem() {
 		Cozinheiro cozinheiro = new Cozinheiro("Pedro", 1, base);
 		
 		cozinheiro.receberPedido(pedido2);
 		cozinheiro.iniciarPreparação();
 		
+		assertEquals(true, cozinheiro.finalizarPreparação());
+	}
+	
+	@Test
+	public void testFinalizaPreparaçãoVáriosItem() {
+		Cozinheiro cozinheiro = new Cozinheiro("Pedro", 1, base);
+		
+		cozinheiro.receberPedido(pedido1);
+		cozinheiro.iniciarPreparação();
+		
+		assertEquals(false, cozinheiro.finalizarPreparação());
+		assertEquals(false, cozinheiro.finalizarPreparação());
+		assertEquals(false, cozinheiro.finalizarPreparação());
+		assertEquals(false, cozinheiro.finalizarPreparação());
 		assertEquals(false, cozinheiro.finalizarPreparação());
 		assertEquals(true, cozinheiro.finalizarPreparação());
 		
-		assertEquals(true, pedido2.getItens().isEmpty());
+		assertEquals(true, pedido1.getItens().isEmpty());
 	}
 
 }

@@ -31,10 +31,10 @@ public class Database {
 		
 		cardapio = new HashMap<>();
 		
-		inicializarFuncionarios();
 		inicializarMesas();
 		inicializarSalarios();
 		inicializarCardapio();
+		inicializarFuncionarios();
 	}
 	
 	private void inicializarMesas() {
@@ -82,6 +82,21 @@ public class Database {
 		int codigo = 0;
 		
 		funcionarios.put(codigo, new AuxiliarCozinha("Pedro", codigo++, this));
+		funcionarios.put(codigo, new Cozinheiro("André", codigo++, this));
+
+		Pedido pedido1 = new Pedido(getTodasMesas().get(0));
+		pedido1.getItens().add(new Item("Prato Principal", 10, "Prato Principal 1", 3, 4, 10, "1 kg de sopa"));
+		pedido1.getItens().add(new Item("Entrada", 2, "Entrada 2", 3, 4, 4, "2 kg de sopa"));
+		pedido1.getItens().add(new Item("Salada", 1, "Salada 1", 3, 4, 1, "2 kg de sopa"));
+		pedido1.getItens().add(new Item("Entrada", 1, "Entrada 1", 3, 4, 6, "2 kg de sopa"));
+		pedido1.getItens().add(new Item("Prato Principal", 13, "Prato Principal 2", 3, 4, 8, "1 kg de sopa"));
+		pedido1.getItens().add(new Item("Sopa", 3, "Sopa 2", 3, 4, 30, "1 kg de sopa"));
+		
+		Pedido pedido2 = new Pedido(getTodasMesas().get(1));
+		pedido2.getItens().add(new Item("salada", 13, "Salada", 5, 10, 1, "1 kg de folha"));
+		
+		((Cozinheiro)funcionarios.get(codigo - 1)).receberPedido(pedido1);
+		((Cozinheiro)funcionarios.get(codigo - 1)).receberPedido(pedido2);
 	}
 	
 	private void inicializarSalarios() {

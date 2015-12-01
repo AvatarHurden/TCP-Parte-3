@@ -6,7 +6,9 @@ import java.io.InputStreamReader;
 import java.util.List;
 
 import restaurant.Database;
+import restaurant.Item;
 import restaurant.Mesa;
+import restaurant.Pedido;
 import restaurant.funcionarios.AuxiliarCozinha;
 import restaurant.funcionarios.Cozinheiro;
 import restaurant.funcionarios.Funcionario;
@@ -89,12 +91,44 @@ public class AdministraçãoDeContaRestauranteImpl implements
 		
 		switch (opção) {
 		case 1:
-			operações.iniciarPreparação();
+			if (operações.getPedidoEmPreparação() != null)
+				System.out.println("Já existe um pedido em preparação");
+			else {
+				operações.iniciarPreparação();
+				
+				Pedido pedido = operações.getPedidoEmPreparação();
+				
+				if (pedido == null) 
+					System.out.println("Não há pedidos para serem feitos");
+				else {
+					System.out.println("\nPedido para mesa " + pedido.getMesa().getCódigo() + ":");
+					
+					List<Item> itens = pedido.getItens();
+					for (int i = 0; i < itens.size(); i++)
+						System.out.println(i+1 + ". " + itens.get(i).getNome());
+				}
+			}
 			
 			break;
 		case 2:
-			operações.finalizarPreparação();
 			
+			Pedido pedido = operações.getPedidoEmPreparação();
+			
+			if (pedido == null)
+				System.out.println("É preciso iniciar a preparação de um pedido antes.");
+			else {
+				System.out.println("\nO item " + pedido.getItens().get(0).getNome() + " foi finalizado");	
+				
+				if (operações.finalizarPreparação())
+					System.out.println("\nO pedido para a mesa " + pedido.getMesa().getCódigo() + " foi finalizado.");
+				else {
+					System.out.println("\nItens restantes para mesa " + pedido.getMesa().getCódigo() + ":");
+					
+					List<Item> itens = pedido.getItens();
+					for (int i = 0; i < itens.size(); i++)
+						System.out.println(i + ". " + itens.get(i).getNome());
+				}
+			}
 			break;
 		default:
 			break;

@@ -47,13 +47,13 @@ public class Cozinheiro extends Funcionario implements OperaçõesCozinheiro {
 			return false;
 		
 		List<Item> itens = m.getItens();
+		itens.remove(0);
+		
 		if (itens.isEmpty()) {
 			filaDePreparação.poll();
 			return true;
-		} else {
-			itens.remove(0);
+		} else
 			return false;
-		}
 	}
 
 	@Override
