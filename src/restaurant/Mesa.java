@@ -16,7 +16,7 @@ public class Mesa {
 		this.setor = nomeSetor;
 		this.capacidade = capacidade;
 		
-		this.status = Math.random() > 0.7 ? Status.LIMPAR : Status.LIVRE;
+		this.status = Status.LIVRE;
 	}
 	
 	public String getSetor() {

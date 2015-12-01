@@ -17,7 +17,7 @@ public class AuxiliarCozinha extends Funcionario implements OperaçõesAuxiliar {
 
 	@Override
 	public void liberarMesa() {
-		if (mesasParaLimpar != null && mesasParaLimpar.isEmpty()) {
+		if (mesasParaLimpar != null && !mesasParaLimpar.isEmpty()) {
 			mesasParaLimpar.get(0).setStatus(Status.LIVRE);
 			mesasParaLimpar.remove(0);
 		}
