@@ -12,6 +12,7 @@ public class Item {
 	
 	public Item(String tipo, int codigo, String nome, double custo, double preço,
 			double preparo, String ingredientes) {
+		this.tipo = tipo;
 		this.codigo = codigo;
 		this.nome = nome;
 		this.custo = custo;

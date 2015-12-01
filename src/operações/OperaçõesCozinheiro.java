@@ -5,7 +5,7 @@ import restaurant.Pedido;
 public interface OperaçõesCozinheiro {
 
 	public void iniciarPreparação();
-	public void finalizarPreparação();
+	public boolean finalizarPreparação();
 	public void receberPedido(Pedido pedido);
 	
 }
