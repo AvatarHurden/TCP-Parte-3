@@ -58,13 +58,16 @@ public class AdministraçãoDeContaRestauranteImpl implements
 		switch (opção) {
 		case 1:
 			operações.checarMesasParaLimpeza();
-
-			System.out.print("\nMesas para limpar: ");
 			List<Mesa> mesas = operações.getMesasParaLimpeza();
-			for (int i = 0; i < mesas.size() - 1; i++)
-				System.out.print(mesas.get(i).getCódigo() + ", ");
-			System.out.println(mesas.get(mesas.size() - 1).getCódigo() + "\n");
-			
+
+			if (mesas.size() == 0)
+				System.out.println("\nNão existem mesas para limpeza.");
+			else {
+				System.out.print("\nMesas para limpar: ");
+				for (int i = 0; i < mesas.size() - 1; i++)
+					System.out.print(mesas.get(i).getCódigo() + ", ");
+				System.out.println(mesas.get(mesas.size() - 1).getCódigo() + "\n");
+			}
 			break;
 		case 2:
 
