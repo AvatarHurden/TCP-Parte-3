@@ -34,6 +34,7 @@ public class Atendente extends Funcionario implements OperaçõesAtendente {
 
 	@Override
 	public void cancelarReservaMesa(Mesa mesa, Date date) {
+		
 		// TODO Auto-generated method stub
 		
 	}

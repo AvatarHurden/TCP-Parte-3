@@ -6,12 +6,14 @@ import java.io.InputStreamReader;
 import java.util.List;
 
 import restaurant.Database;
+import restaurant.Ingrediente;
 import restaurant.Item;
 import restaurant.Mesa;
 import restaurant.Pedido;
 import restaurant.funcionarios.AuxiliarCozinha;
 import restaurant.funcionarios.Cozinheiro;
 import restaurant.funcionarios.Funcionario;
+import restaurant.funcionarios.Gerente;
 
 public class AdministraçãoDeContaRestauranteImpl implements
 		AdministraçãoDeContaRestaurante {
@@ -42,6 +44,8 @@ public class AdministraçãoDeContaRestauranteImpl implements
 				esperaOpçãoAuxiliar();
 			else if (funcionario instanceof Cozinheiro)
 				esperaOpçãoCozinheiro();
+			else if (funcionario instanceof Gerente)
+				esperaOpçãoGerente();
 			
 		}
 	}
@@ -81,6 +85,39 @@ public class AdministraçãoDeContaRestauranteImpl implements
 		default:
 			break;
 		}
+	}
+	
+	private void esperaOpçãoGerente()
+	{
+		System.out.println("\nAções disponíveis:");
+		System.out.println("1. Verificar Estoque");
+		System.out.println("2. Cancelar");
+		int opção = requestNumber("\nSua escolha: ", 1, 3);
+		
+		Gerente operações = (Gerente) funcionario;
+		
+		switch (opção) {
+		case 1:
+			operações.checarEstoque();
+			List<Ingrediente> ingrediente = operações.getIngredientesQtd();
+
+			
+			
+			if (ingrediente.size() == 0)
+				System.out.println("\nNão existem ingredientes faltando.");
+			else {
+				System.out.print("\nIngredientes para repor: ");
+				for (int i = 0; i < ingrediente.size() - 1; i++)
+					System.out.print(ingrediente.get(i).getNome() + ", ");
+				System.out.println(ingrediente.get(ingrediente.size() - 1).getNome() + "\n");
+			}
+			break;
+		case 2:
+
+			
+			break;
+		}
+	
 	}
 	
 	private void esperaOpçãoCozinheiro() {

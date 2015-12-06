@@ -23,20 +23,40 @@ public class Database {
 	
 	private Map<Integer, Item> cardapio;
 	
+	private Map<String, Ingrediente>  estoque;
+	
+	
 	public Database() {
 		mapaDeMesas = new HashMap<>();
 		salariosFixo = new HashMap<>();
 		salariosVariavel = new HashMap<>();
 		funcionarios = new HashMap<>();
-		
+			
 		cardapio = new HashMap<>();
+		
+		estoque = new HashMap<>();
 		
 		inicializarMesas();
 		inicializarSalarios();
 		inicializarCardapio();
 		inicializarFuncionarios();
+		inicializaEstoque();
+		
 	}
 	
+	
+	private void inicializaEstoque()
+	{
+		estoque.put("tomate", new Ingrediente("tomate", 0, "unidade"));
+		estoque.put("cebola", new Ingrediente("cebola", 4, "unidade"));
+		estoque.put("pernil", new Ingrediente("pernil", 5, "kilos"));
+		estoque.put("arroz", new Ingrediente("arroz", 20, "kilos"));
+		estoque.put("limão", new Ingrediente("limão", 20, "unidade"));
+		estoque.put("pão", new Ingrediente("pão", 0, "unidade"));
+		
+	}
+	
+
 	private void inicializarMesas() {
 		String[] setores = new String[] {"Azul", "Amarelo", "Vermelho", "Verde", "Rosa" };
 		int codigo = 0;
@@ -82,6 +102,7 @@ public class Database {
 		int codigo = 0;
 		
 		funcionarios.put(codigo, new AuxiliarCozinha("Pedro", codigo++, this));
+		funcionarios.put(codigo, new Gerente("Marta", codigo++, this));
 		funcionarios.put(codigo, new Cozinheiro("André", codigo++, this));
 
 		Pedido pedido1 = new Pedido(getTodasMesas().get(0));
@@ -136,13 +157,29 @@ public class Database {
 	}
 	
 	public List<Mesa> getTodasMesas() {
+		
 		return new ArrayList<Mesa>(mapaDeMesas.values());
+	}
+	
+	public List<Ingrediente> getTodosIngredientes(){
+		
+		return new ArrayList<Ingrediente>(estoque.values());
+		
 	}
 	
 	public List<Mesa> getMesasComStatus(Status status) {
 		List<Mesa> ret = getTodasMesas();
 		ret.removeIf(mesa -> mesa.getStatus() != status);
 		return ret;
+	}
+	
+	public List<Ingrediente> getIngredientesQtd(int quantidade)
+	{
+		List<Ingrediente> ingrediente = getTodosIngredientes();
+
+		ingrediente.removeIf(Ingrediente -> Ingrediente.getQuantidade() != quantidade);
+	
+		return ingrediente;
 	}
 
 	public double getSalarioFixoPara(Class<? extends Funcionario> classe) {

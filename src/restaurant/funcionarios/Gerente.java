@@ -1,16 +1,25 @@
 package restaurant.funcionarios;
 
+import java.util.List;
+
 import operações.OperaçõesGerente;
 import restaurant.Database;
 import restaurant.Estoque;
+import restaurant.Ingrediente;
+import restaurant.Mesa;
+import restaurant.Status;
 import restaurant.Turno;
 
 public class Gerente extends Funcionario implements OperaçõesGerente {
 
 	private Estoque estoque;
 	
-	public Gerente(String nome, int código, Database bancoDeDados, Estoque estoque) {
+	private List<Ingrediente> IngredientesQtdZero ;
+	
+	
+	public Gerente(String nome, int código, Database bancoDeDados) {
 		super(nome, código, bancoDeDados);
+		
 		this.estoque = estoque;
 	}
 
@@ -40,8 +49,14 @@ public class Gerente extends Funcionario implements OperaçõesGerente {
 
 	@Override
 	public void checarEstoque() {
-		// TODO Auto-generated method stub
-		
+		IngredientesQtdZero = getBancoDeDados().getIngredientesQtd(0);	
 	}
+	
+	public List<Ingrediente> getIngredientesQtd() {
+		return IngredientesQtdZero;
 
+}
+	
+	
+	
 }
